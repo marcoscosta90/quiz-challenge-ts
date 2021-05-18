@@ -27,8 +27,8 @@ type Props = {
   answers: string[];
   callback: (e: React.MouseEvent<HTMLButtonElement>) => void;
   userAnswer: AnswerObject | undefined;
-  questionNumber: number;
-  totalQuestions: number;
+  questionNumber: number;  
+  numberQuestions: number;
 };
 
 const QuestionCard: React.FC<Props> = ({
@@ -36,15 +36,15 @@ const QuestionCard: React.FC<Props> = ({
   answers,
   callback,
   userAnswer,
-  questionNumber,
-  totalQuestions,
+  questionNumber,  
+  numberQuestions
 }) => {
   const classes = useStyles();
 
   return (
     <Box className={classes.root}>
       <Typography className={classes.number}>
-        Question: {questionNumber} / {totalQuestions}
+        Question: {questionNumber} / {numberQuestions}
       </Typography>
       <Typography
         className={classes.number}
