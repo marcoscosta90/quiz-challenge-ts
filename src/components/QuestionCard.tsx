@@ -4,7 +4,7 @@ import { AnswerObject } from "../App";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: "1100px",    
+    maxWidth: "1100px",
     background: "#ebfeff",
     borderRadius: "10px",
     border: "2px solid #0085a3",
@@ -14,20 +14,20 @@ const useStyles = makeStyles({
   },
   number: {
     fontSize: "1.5rem",
-    marginBottom: "1.5rem"
+    marginBottom: "1.5rem",
   },
   button: {
-    width: '20rem',
-    marginTop: '1rem',
-  }
+    width: "20rem",
+    marginTop: "1rem",
+  },
 });
 
 type Props = {
   question: string;
   answers: string[];
   callback: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  userAnswer: AnswerObject | undefined;
-  questionNumber: number;  
+  userAnswers: AnswerObject | undefined;
+  questionNumber: number;
   numberQuestions: number;
 };
 
@@ -35,9 +35,9 @@ const QuestionCard: React.FC<Props> = ({
   question,
   answers,
   callback,
-  userAnswer,
-  questionNumber,  
-  numberQuestions
+  userAnswers,
+  questionNumber,
+  numberQuestions,
 }) => {
   const classes = useStyles();
 
@@ -58,7 +58,7 @@ const QuestionCard: React.FC<Props> = ({
               variant="outlined"
               size="large"
               color="primary"
-              disabled={userAnswer ? true : false}
+              disabled={userAnswers ? true : false}
               value={answer}
               onClick={callback}
             >

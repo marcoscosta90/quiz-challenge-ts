@@ -76,6 +76,10 @@ const useStyles = makeStyles({
     fontSize: "1.5rem",
     marginBottom: "1.5rem",
   },
+  boxButton: {
+    display: "flex",
+    gap: "2rem",
+  },
 });
 
 const App = () => {
@@ -87,6 +91,7 @@ const App = () => {
   const [userAnswers, setUserAnswers] = useState<AnswerObject[]>([]);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(true);
+  const [checkReview, setCheckReview] = useState(false);
   const [startGame, setStartGame] = useState(true);
 
   const [numberQuestions, setNumberQuestions] = useState(0);
@@ -124,6 +129,12 @@ const App = () => {
     setLoading(false);
     setNumberQuestions(0);
     setStartGame(true);
+    setCheckReview(false);
+  };
+
+  const reviewAnswers = () => {
+    setCheckReview(true);
+    setGameOver(true);
   };
 
   const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -173,7 +184,7 @@ const App = () => {
           <Typography className={classes.score}>Score: {score}</Typography>
         ) : null}
 
-        {gameOver && !startGame && (
+        {gameOver && !startGame && !checkReview && (
           <Box style={{ display: "flex", flexDirection: "column" }}>
             <Button
               variant="contained"
@@ -199,8 +210,33 @@ const App = () => {
             questionNumber={number + 1}
             question={questions[number].question}
             answers={questions[number].answers}
-            userAnswer={userAnswers ? userAnswers[number] : undefined}
+            userAnswers={userAnswers ? userAnswers[number] : undefined}
             callback={checkAnswer}
+          />
+        )}
+
+        {!gameOver && userAnswers.length === numberQuestions ? (
+          <Box className={classes.boxButton}>
+            <Button
+              className={`${classes.start} ${classes.start1}`}
+              onClick={reviewAnswers}
+            >
+              Review Answers
+            </Button>
+            <Button
+              className={`${classes.start} ${classes.start1}`}
+              onClick={resetQuiz}
+            >
+              Cancel Game
+            </Button>
+          </Box>
+        ) : null}
+
+        {gameOver && checkReview && (
+          <QuestionInput
+            onChange={onChange}
+            handleSubmit={handleSubmit}
+            numberQuestions={numberQuestions}
           />
         )}
 
